@@ -28,4 +28,4 @@ jobs:
         git checkout main
         git pull origin main
         git commit --amend -m "$NEW_COMMIT_MESSAGE"
-        git push --force https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
+        git push --force-with-lease https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
