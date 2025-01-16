@@ -1,0 +1,29 @@
+name: Conventional commits PR
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  change-commit-message:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Change commit message to Conventional Commits format
+      run: |
+        PR_TITLE=$(echo "${{ github.event.pull_request.title }}" | sed 's/\s/-/g')
+        PR_NUMBER=${{ github.event.pull_request.number }}
+        NEW_COMMIT_MESSAGE="feat: Merge PR #${PR_NUMBER} - ${PR_TITLE}"
+
+        git checkout main
+        git pull origin main
+        git commit --amend -m "$NEW_COMMIT_MESSAGE"
+        git push --force origin main
