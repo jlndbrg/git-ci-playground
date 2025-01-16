@@ -22,7 +22,7 @@ jobs:
         PR_TITLE=$(echo "${{ github.event.pull_request.title }}")
         PR_NUMBER=${{ github.event.pull_request.number }}
         BRANCH=${{ github.event.pull_request.ref }}
-        NEW_COMMIT_MESSAGE="feat(BRANCH): Merge PR #${PR_NUMBER} - ${PR_TITLE}"
+        NEW_COMMIT_MESSAGE="${PR_TITLE}: Merge PR #${PR_NUMBER} Branch: ${{BRANCH}}"
 
         git checkout main
         git pull origin main
