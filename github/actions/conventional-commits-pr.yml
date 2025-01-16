@@ -1,4 +1,4 @@
-name: Conventional commits PR
+name: Change Commit Message
 
 on:
   pull_request:
@@ -18,6 +18,8 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
     - name: Change commit message to Conventional Commits format
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         PR_TITLE=$(echo "${{ github.event.pull_request.title }}" | sed 's/\s/-/g')
         PR_NUMBER=${{ github.event.pull_request.number }}
@@ -26,4 +28,4 @@ jobs:
         git checkout main
         git pull origin main
         git commit --amend -m "$NEW_COMMIT_MESSAGE"
-        git push --force origin main
+        git push --force-with-lease https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
