@@ -1,0 +1,16 @@
+{
+  "name": "git-ci-playground",
+  "version": "1.0.0",
+  "description": "Playground for conventiona commits and automated release notes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests found, skipping...\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0"
+  }
+}
