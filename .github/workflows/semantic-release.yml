@@ -3,11 +3,10 @@ name: Full Automation with Semantic Release
 on:
   push:
     branches:
-      - main  # Triggers on pushes to the main branch
+      - main
 
 jobs:
   release:
-    name: Semantic Release Automation
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +18,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'
+        node-version: '18' # Use Node.js v18 (LTS)
 
     # 3. Install dependencies
     - name: Install Dependencies
@@ -28,5 +27,5 @@ jobs:
     # 4. Run Semantic Release
     - name: Run Semantic Release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Required for GitHub API authentication
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npx semantic-release
