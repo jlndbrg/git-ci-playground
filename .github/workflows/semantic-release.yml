@@ -18,7 +18,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' # Use Node.js v18 (LTS)
+        node-version: '20.8.1' # Use Node.js 20.8.1 or newer
 
     # 3. Install dependencies
     - name: Install Dependencies
