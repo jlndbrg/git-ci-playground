@@ -1,0 +1,44 @@
+name: Generate Changelog
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Check out the code
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # 2. Set up Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    # 3. Install dependencies
+    - name: Install Conventional Changelog CLI
+      run: npm install -g conventional-changelog-cli
+
+    # 4. Generate changelog
+    - name: Generate Changelog
+      run: |
+        # Generate or update the CHANGELOG.md
+        conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+
+    # 5. Commit and push changes
+    - name: Commit and Push Changelog
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+        # Stage and commit changes
+        git add CHANGELOG.md
+        git commit -m "chore: update changelog [skip ci]" || echo "No changes to commit"
+
+        # Push changes to the repository
+        git push
