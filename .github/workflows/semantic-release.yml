@@ -1,4 +1,4 @@
-name: Full Automation with Semantic Release
+name: Release tags with automatic release notes - Semantic Release 
 
 on:
   push:
