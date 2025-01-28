@@ -1,0 +1,28 @@
+name: Validate PR Title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize] # Kör vid ändringar i PR-titeln eller PR:en
+
+jobs:
+  validate-title:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Validate PR Title
+      run: |
+        TITLE="${{ github.event.pull_request.title }}"
+        echo "Pull Request Title: $TITLE"
+        
+        # Regex för Conventional Commits-format
+        if [[ ! "$TITLE" =~ ^(feat|fix|docs|style|refactor|perf|test|chore|build|ci)(\(!\))?:\ .+$ ]]; then
+          echo "❌ Error: PR title does not follow Conventional Commits format."
+          echo "Expected format: <type>(optional scope): <description>"
+          echo "Examples:"
+          echo "  feat: Add OAuth2 support"
+          echo "  fix: Correct alignment in login form"
+          echo "  feat!: Change API authentication (breaking change)"
+          exit 1
+        fi
+
+        echo "✅ Success: PR title is valid."
